@@ -1,0 +1,7 @@
+@baseUrl = https://uaspemweb.test/api/peminjams
+@cType = application/json
+@apikey = password
+###
+GET {{baseUrl}}
+Content-Type: {{cType}}
+X-API-KEY:  {{apikey}}

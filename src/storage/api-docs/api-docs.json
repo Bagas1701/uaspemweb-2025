@@ -1,0 +1,581 @@
+{
+    "openapi": "3.0.0",
+    "info": {
+        "title": "My API",
+        "description": "This Is API Documentation for My Application",
+        "termsOfService": "https://uaspemweb.test/terms",
+        "contact": {
+            "name": "API Support",
+            "email": "support@example.com"
+        },
+        "license": {
+            "name": "Apache 2.0",
+            "url": "http://www.apache.org/licenses/LICENSE-2.0.html"
+        },
+        "version": "1.0.0"
+    },
+    "servers": [
+        {
+            "url": "http://my-default-host.com",
+            "description": "API Server"
+        },
+        {
+            "url": "https://uaspemweb.test",
+            "description": "Local API Server"
+        }
+    ],
+    "paths": {
+        "/api/barangs": {
+            "get": {
+                "tags": [
+                    "Barangs"
+                ],
+                "summary": "Get all barangs",
+                "description": "Returns a list of all barangs.",
+                "operationId": "getBarangs",
+                "responses": {
+                    "200": {
+                        "description": "Successful operation",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "data": {
+                                            "type": "string",
+                                            "example": "eyJpdiI6Ik..."
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                },
+                "security": [
+                    {
+                        "ApiKeyAuth": []
+                    }
+                ]
+            },
+            "post": {
+                "tags": [
+                    "Barangs"
+                ],
+                "summary": "Create a new barang",
+                "description": "Stores a new barang and returns encrypted response",
+                "operationId": "storeBarang",
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "required": [
+                                    "nama",
+                                    "image",
+                                    "status"
+                                ],
+                                "properties": {
+                                    "nama": {
+                                        "type": "string",
+                                        "example": "Proyektor Epson"
+                                    },
+                                    "image": {
+                                        "type": "string",
+                                        "example": "proyektor.jpg"
+                                    },
+                                    "status": {
+                                        "type": "string",
+                                        "enum": [
+                                            "tersedia",
+                                            "dipinjam"
+                                        ],
+                                        "example": "tersedia"
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Barang created",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "data": {
+                                            "type": "string",
+                                            "example": "eyJpdiI6Ik..."
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                },
+                "security": [
+                    {
+                        "ApiKeyAuth": []
+                    }
+                ]
+            }
+        },
+        "/api/barangs/{id}": {
+            "get": {
+                "tags": [
+                    "Barangs"
+                ],
+                "summary": "Get a barang by ID",
+                "description": "Returns a single barang",
+                "operationId": "getBarangById",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "Barang ID",
+                        "required": true,
+                        "schema": {
+                            "type": "integer",
+                            "example": 1
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Success",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "data": {
+                                            "type": "string"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "404": {
+                        "description": "Barang not found"
+                    }
+                },
+                "security": [
+                    {
+                        "ApiKeyAuth": []
+                    }
+                ]
+            },
+            "put": {
+                "tags": [
+                    "Barangs"
+                ],
+                "summary": "Update a barang",
+                "description": "Updates an existing barang",
+                "operationId": "updateBarang",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "Barang ID",
+                        "required": true,
+                        "schema": {
+                            "type": "integer",
+                            "example": 1
+                        }
+                    }
+                ],
+                "requestBody": {
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "properties": {
+                                    "nama": {
+                                        "type": "string",
+                                        "example": "Speaker JBL"
+                                    },
+                                    "image": {
+                                        "type": "string",
+                                        "example": "speaker.jpg"
+                                    },
+                                    "status": {
+                                        "type": "string",
+                                        "enum": [
+                                            "tersedia",
+                                            "dipinjam"
+                                        ],
+                                        "example": "dipinjam"
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Updated successfully"
+                    }
+                },
+                "security": [
+                    {
+                        "ApiKeyAuth": []
+                    }
+                ]
+            },
+            "delete": {
+                "tags": [
+                    "Barangs"
+                ],
+                "summary": "Delete a barang",
+                "description": "Deletes a barang by ID",
+                "operationId": "deleteBarang",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "Barang ID",
+                        "required": true,
+                        "schema": {
+                            "type": "integer",
+                            "example": 1
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Barang deleted successfully"
+                    }
+                },
+                "security": [
+                    {
+                        "ApiKeyAuth": []
+                    }
+                ]
+            }
+        },
+        "/api/barangs/decrypt": {
+            "post": {
+                "tags": [
+                    "Barangs"
+                ],
+                "summary": "Decrypt encrypted barang data",
+                "description": "Decrypts the encrypted barang response.",
+                "operationId": "decryptBarangResponse",
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "required": [
+                                    "data"
+                                ],
+                                "properties": {
+                                    "data": {
+                                        "type": "string",
+                                        "example": "eyJpdiI6IjFPU2h..."
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Decrypted response",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "message": {
+                                            "type": "string"
+                                        },
+                                        "data": {
+                                            "type": "object"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "400": {
+                        "description": "Decrypt Failed"
+                    }
+                },
+                "security": [
+                    {
+                        "ApiKeyAuth": []
+                    }
+                ]
+            }
+        },
+        "/api/peminjams": {
+            "get": {
+                "tags": [
+                    "Peminjams"
+                ],
+                "summary": "List semua peminjaman",
+                "operationId": "960f648e362c4c7c20cee216372e9e65",
+                "responses": {
+                    "200": {
+                        "description": "Berhasil mengambil data",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "array",
+                                    "items": {
+                                        "$ref": "#/components/schemas/Peminjam"
+                                    }
+                                }
+                            }
+                        }
+                    }
+                },
+                "security": [
+                    {
+                        "ApiKeyAuth": []
+                    }
+                ]
+            },
+            "post": {
+                "tags": [
+                    "Peminjams"
+                ],
+                "summary": "Tambah peminjaman baru",
+                "operationId": "6447cb0a53dedaf070f86d5ab20437d3",
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "required": [
+                                    "barang_id",
+                                    "nama_peminjam",
+                                    "tanggal_pinjam",
+                                    "tanggal_kembali"
+                                ],
+                                "properties": {
+                                    "barang_id": {
+                                        "type": "integer"
+                                    },
+                                    "nama_peminjam": {
+                                        "type": "string"
+                                    },
+                                    "tanggal_pinjam": {
+                                        "type": "string",
+                                        "format": "date"
+                                    },
+                                    "tanggal_kembali": {
+                                        "type": "string",
+                                        "format": "date"
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "201": {
+                        "description": "Berhasil disimpan"
+                    }
+                },
+                "security": [
+                    {
+                        "ApiKeyAuth": []
+                    }
+                ]
+            }
+        },
+        "/api/peminjams/{id}": {
+            "get": {
+                "tags": [
+                    "Peminjams"
+                ],
+                "summary": "Ambil data peminjaman berdasarkan ID",
+                "operationId": "dd2a56ebd2a674b513e8cd46a7da99e5",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Data ditemukan",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/Peminjam"
+                                }
+                            }
+                        }
+                    },
+                    "404": {
+                        "description": "Data tidak ditemukan"
+                    }
+                },
+                "security": [
+                    {
+                        "ApiKeyAuth": []
+                    }
+                ]
+            },
+            "delete": {
+                "tags": [
+                    "Peminjams"
+                ],
+                "summary": "Hapus data peminjam",
+                "operationId": "a3c524b051b4a8b636b3295f473a49b5",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "responses": {
+                    "204": {
+                        "description": "Berhasil dihapus"
+                    },
+                    "404": {
+                        "description": "Data tidak ditemukan"
+                    }
+                },
+                "security": [
+                    {
+                        "ApiKeyAuth": []
+                    }
+                ]
+            }
+        }
+    },
+    "components": {
+        "schemas": {
+            "Barang": {
+                "title": "Barang",
+                "required": [
+                    "id",
+                    "nama",
+                    "image",
+                    "status"
+                ],
+                "properties": {
+                    "id": {
+                        "type": "integer",
+                        "example": 1
+                    },
+                    "nama": {
+                        "type": "string",
+                        "example": "Laptop Asus"
+                    },
+                    "image": {
+                        "type": "string",
+                        "example": "images/laptop-asus.jpg"
+                    },
+                    "status": {
+                        "type": "string",
+                        "enum": [
+                            "tersedia",
+                            "dipinjam"
+                        ],
+                        "example": "tersedia"
+                    },
+                    "created_at": {
+                        "type": "string",
+                        "format": "date-time",
+                        "example": "2025-07-21T10:00:00Z"
+                    },
+                    "updated_at": {
+                        "type": "string",
+                        "format": "date-time",
+                        "example": "2025-07-21T11:00:00Z"
+                    }
+                },
+                "type": "object"
+            },
+            "Peminjam": {
+                "title": "Peminjam",
+                "required": [
+                    "id",
+                    "barang_id",
+                    "nama_peminjam",
+                    "tanggal_pinjam",
+                    "tanggal_kembali"
+                ],
+                "properties": {
+                    "id": {
+                        "description": "ID peminjaman",
+                        "type": "integer",
+                        "example": 1
+                    },
+                    "barang_id": {
+                        "description": "ID barang yang dipinjam",
+                        "type": "integer",
+                        "example": 2
+                    },
+                    "nama_peminjam": {
+                        "description": "Nama dari peminjam",
+                        "type": "string",
+                        "example": "Ahmad Fauzi"
+                    },
+                    "tanggal_pinjam": {
+                        "description": "Tanggal peminjaman",
+                        "type": "string",
+                        "format": "date",
+                        "example": "2025-07-21"
+                    },
+                    "tanggal_kembali": {
+                        "description": "Tanggal pengembalian",
+                        "type": "string",
+                        "format": "date",
+                        "example": "2025-07-28"
+                    },
+                    "created_at": {
+                        "description": "Waktu pencatatan data",
+                        "type": "string",
+                        "format": "date-time",
+                        "readOnly": true,
+                        "example": "2025-07-21T10:00:00Z"
+                    },
+                    "updated_at": {
+                        "description": "Waktu pembaruan data terakhir",
+                        "type": "string",
+                        "format": "date-time",
+                        "readOnly": true,
+                        "example": "2025-07-21T11:00:00Z"
+                    }
+                },
+                "type": "object"
+            }
+        },
+        "securitySchemes": {
+            "ApiKeyAuth": {
+                "type": "apiKey",
+                "name": "X-API-KEY",
+                "in": "header"
+            }
+        }
+    },
+    "tags": [
+        {
+            "name": "Peminjams",
+            "description": "API untuk manajemen data peminjam"
+        },
+        {
+            "name": "Barangs",
+            "description": "Barangs"
+        }
+    ]
+}
